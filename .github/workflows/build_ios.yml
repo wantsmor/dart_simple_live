@@ -1,0 +1,29 @@
+name: Build iOS IPA
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.22.1' # 确保和项目版本一致
+
+    - name: Get dependencies
+      run: flutter pub get
+
+    - name: Build iOS IPA (no code sign)
+      run: flutter build ipa --no-codesign
+
+    - name: Upload IPA
+      uses: actions/upload-artifact@v3
+      with:
+        name: dart_simple_live_ipa
+        path: build/ios/ipa/*.ipa
