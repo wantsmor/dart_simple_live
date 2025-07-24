@@ -11,21 +11,25 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
+    - name: Change into project subdirectory
+      run: cd dart_simple_live/flutter_simple_live && echo "Moved into project dir"
+      shell: bash
+
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
         flutter-version: '3.22.1'
 
-    - name: Get dependencies
+    - name: Install dependencies
       run: flutter pub get
-      working-directory: flutter_simple_live
+      working-directory: dart_simple_live/flutter_simple_live
 
     - name: Build iOS IPA (no code sign)
       run: flutter build ipa --no-codesign --verbose
-      working-directory: flutter_simple_live
+      working-directory: dart_simple_live/flutter_simple_live
 
     - name: Upload IPA
       uses: actions/upload-artifact@v4
       with:
         name: dart_simple_live_ipa
-        path: flutter_simple_live/build/ios/ipa/*.ipa
+        path: dart_simple_live/flutter_simple_live/build/ios/ipa/*.ipa
