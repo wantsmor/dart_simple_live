@@ -14,7 +14,7 @@ jobs:
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.22.1' # 确保和项目版本一致
+        flutter-version: '3.22.1'
 
     - name: Get dependencies
       run: flutter pub get
@@ -23,7 +23,7 @@ jobs:
       run: flutter build ipa --no-codesign
 
     - name: Upload IPA
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4    # 注意这里改成 v4
       with:
         name: dart_simple_live_ipa
         path: build/ios/ipa/*.ipa
