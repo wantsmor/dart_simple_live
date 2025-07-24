@@ -18,12 +18,14 @@ jobs:
 
     - name: Get dependencies
       run: flutter pub get
+      working-directory: flutter_simple_live
 
     - name: Build iOS IPA (no code sign)
-      run: flutter build ipa --no-codesign
+      run: flutter build ipa --no-codesign --verbose
+      working-directory: flutter_simple_live
 
     - name: Upload IPA
-      uses: actions/upload-artifact@v4    # 注意这里改成 v4
+      uses: actions/upload-artifact@v4
       with:
         name: dart_simple_live_ipa
-        path: build/ios/ipa/*.ipa
+        path: flutter_simple_live/build/ios/ipa/*.ipa
